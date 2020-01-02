@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:fragment="sidebar">
+    <div class="col-2 bg-white sidebar">
+        <ul class="nav nav-pills nav-sidebar flex-column mt-3">
+                <span sec:authorize="hasAnyAuthority('ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:classappend="${#httpServletRequest.getServletPath().equals('/admin')} ? active"
+                           th:href="@{/admin}">Admin</a> </a>
+                    </li>
+                </span>
+            <span sec:authorize="hasAnyAuthority('MANAGER')">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:classappend="${#httpServletRequest.getServletPath().equals('/manager')} ? active"
+                       th:href="@{/manager}">Manager</a>
+                </li>
+                    </span>
+            <span sec:authorize="hasAnyAuthority('USER')">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:classappend="${#httpServletRequest.getServletPath().equals('/home')} ? active"
+                       th:href="@{/home}">User</a>
+                </li>
+                    </span>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

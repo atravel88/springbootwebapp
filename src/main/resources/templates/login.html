@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+
+<head>
+    <title>Login page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+<article class="card-body mx-auto" style="max-width: 350px">
+    <form th:action="@{/}" method="post">
+
+        <div th:if="${param.error}">
+            <div class="alert alert-danger small text-center">
+                Invalid username and password.
+            </div>
+        </div>
+        <div th:if="${param.logout}">
+            <div class="alert alert-info text-center">
+                You have been logged out.
+            </div>
+        </div>
+        <h4 class="card-title mt-4 text-center">Please Sign in</h4>
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fas fa-at"></i> </span>
+            </div>
+            <input name="email" class="form-control" placeholder="E-mail" type="email" required>
+        </div>
+
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fas fa-key"></i> </span>
+            </div>
+            <input name="password" class="form-control" placeholder="Password" type="password" required>
+        </div>
+
+        <div class="pt-2">
+            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>
+        </div>
+
+        <div class="mt-3">
+            <div class="d-flex justify-content-center links">
+                Don't have an account? <a th:href="@{/registration}" class="ml-2">Sign Up</a>
+            </div>
+        </div>
+    </form>
+</article>
+
+</body>
+</html>
