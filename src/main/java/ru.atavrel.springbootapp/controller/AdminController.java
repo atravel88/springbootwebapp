@@ -10,7 +10,6 @@ import ru.atavrel.springbootapp.service.RoleService;
 import ru.atavrel.springbootapp.service.UserService;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -56,18 +55,7 @@ public class AdminController {
         userService.add(user);
         return "redirect:/admin";
     }
-/*
-    @GetMapping("/edit")
-    public String updatePage(@RequestParam("id") Long id, Model model) {
-        User user = userService.getById(id);
-        model.addAttribute("user", user);
-        List<Role> roleList = roleService.getAll(); // тащим все роли из базы
-        model.addAttribute("allRoles", roleList); // кидаем все роли из базы в атрибуты
-        Set<Role> userRoles = user.getRoles(); // получаем набор ролей у Юзера
-        model.addAttribute("userRoles", userRoles); // кидаем роли юзера в атрибуты
-        return "adminUpdate";
-    }
-*/
+
     @PostMapping("/edit")
     public String updateUser(@ModelAttribute("user") User user) {
         if (user.getRoles().isEmpty()) {
