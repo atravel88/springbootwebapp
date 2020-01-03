@@ -1,5 +1,6 @@
 package ru.atavrel.springbootapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class Role implements GrantedAuthority {
     private String role;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     private Set<User> users;
 
     public Role() {
