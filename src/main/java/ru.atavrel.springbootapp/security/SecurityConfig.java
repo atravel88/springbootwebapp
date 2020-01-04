@@ -3,6 +3,7 @@ package ru.atavrel.springbootapp.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,6 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home/**").hasAuthority("USER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/manager/**").hasAuthority("MANAGER")
+                /*
+                .antMatchers(HttpMethod.GET, "/api/users/**").hasAnyAuthority("MANAGER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/roles/**").hasAnyAuthority("MANAGER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/users/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/users/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/users/**").hasAuthority("ADMIN")
+                */
                 .and()
                 .formLogin()
                 .loginPage("/")

@@ -49,18 +49,18 @@ public class AdminController {
         if (user.getAge() == null) {
             user.setAge(0);
         }
-        if (user.getRoles().isEmpty()) {
+        //if (user.getRoles().isEmpty()) {
             user.getRoles().add(new Role(1L, "USER"));
-        }
+        //}
         userService.add(user);
         return "redirect:/admin";
     }
 
     @PostMapping("/edit")
     public String updateUser(@ModelAttribute("user") User user) {
-        if (user.getRoles().isEmpty()) {
+        //if (user.getRoles().isEmpty()) {
             user.getRoles().add(new Role(1L, "USER"));
-        }
+        //}
         if (user.getAge() == null) {
             user.setAge(0);
         }

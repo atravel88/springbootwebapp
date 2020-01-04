@@ -18,7 +18,6 @@ public class Role implements GrantedAuthority {
     private String role;
 
     @ManyToMany(mappedBy = "roles")
-    @JsonIgnore
     private Set<User> users;
 
     public Role() {
@@ -45,6 +44,7 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
+    @JsonIgnore
     public Set<User> getUsers() {
         return users;
     }
@@ -75,6 +75,7 @@ public class Role implements GrantedAuthority {
         return role;
     }
 
+    @JsonIgnore
     @Override
     public String getAuthority() {
         return role;
