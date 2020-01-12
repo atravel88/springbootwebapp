@@ -20,21 +20,29 @@ class UserRestController {
         this.userService = userService;
     }
 
-    //todo: прописать настройки доступа к api в security
-    // + разобраться детально что делает мой класс RestResponseEntityExceptionHandler
-
     // GET: http://localhost:8080/api/users
     @GetMapping
     public List<User> getAll() {
         return userService.getAll();
     }
 
-    //GET: http://localhost:8080/api/users/id
-    @GetMapping("{id}")
+    //GET: http://localhost:8080/api/users/{id}
+    @GetMapping("/{id}")
     public User getById(@PathVariable Long id) {
         User user = userService.getById(id);
         if (user == null) {
             throw new ResourceNotFoundException("No user found with such id: " + id);
+        }
+        return user;
+    }
+
+    //GET: http://localhost:8080/api/user/email/{email}
+    @GetMapping("/email/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public User getUserByEmail(@PathVariable("email") String email) {
+        User user = userService.getUserByEmail(email);
+        if (user == null) {
+            throw new ResourceNotFoundException("No user found with such email: " + email);
         }
         return user;
     }
@@ -47,21 +55,19 @@ class UserRestController {
         return user;
     }
 
-    //PUT: http://localhost:8080/api/users/id
-    @PutMapping("{id}")
+    //PUT: http://localhost:8080/api/users/
+    @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public User updateById(@PathVariable("id") Long id, @RequestBody User user) {
-        User userFromDB = userService.getById(id);
+    public void update(@RequestBody User user) {
+        User userFromDB = userService.getById(user.getId());
         if (userFromDB == null) {
-            throw new ResourceNotFoundException("No user found with such id: " + id);
+            throw new ResourceNotFoundException("No user found with such id: " + user.getId());
         }
-        user.setId(id);
-        userService.update(user);
-        return user;
+        userService.add(user);
     }
 
-    //DELETE: http://localhost:8080/api/users/id
-    @DeleteMapping("{id}")
+    //DELETE: http://localhost:8080/api/users/{id}
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable Long id) {
         User user = userService.getById(id);
@@ -70,12 +76,4 @@ class UserRestController {
         }
         userService.deleteById(id);
     }
-
-/*
-    //getByUsername(String username)
-    @GetMapping("/users/{email}")
-    public User getUserByEmail(@PathVariable String email) {
-        return userService.getUserByEmail(email);
-    }
-*/
 }

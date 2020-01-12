@@ -38,13 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home/**").hasAuthority("USER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/manager/**").hasAuthority("MANAGER")
-                /*
+
+/*
                 .antMatchers(HttpMethod.GET, "/api/users/**").hasAnyAuthority("MANAGER", "ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/roles/**").hasAnyAuthority("MANAGER", "ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/users/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/users/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/users/**").hasAuthority("ADMIN")
-                */
+
+                .antMatchers(HttpMethod.GET, "/api/users/email/**").hasAuthority("USER") // косячно работает
+                .antMatchers(HttpMethod.POST, "/api/users/*").anonymous() // косячно работает
+*/
                 .and()
                 .formLogin()
                 .loginPage("/")
@@ -53,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception { // настройка билдера для создания AuthenticationManager
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 

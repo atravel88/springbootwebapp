@@ -98,7 +98,9 @@ public class User implements UserDetails {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) { return true; }
+        if (obj == this) {
+            return true;
+        }
         if (obj instanceof User) {
             User user = (User) obj;
             return email.equalsIgnoreCase(user.email) &&

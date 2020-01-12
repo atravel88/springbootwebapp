@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.atavrel.springbootapp.dao.UsersRepository;
+import ru.atavrel.springbootapp.model.Role;
 import ru.atavrel.springbootapp.model.User;
 
 import java.util.List;
@@ -42,16 +43,12 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public boolean add(User entity) {
-        if (entity.getAge() == null) {
-            entity.setAge(0);
+    public void add(User entity) {
+        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+        if (entity.getRoles().isEmpty()){
+            entity.getRoles().add(new Role(1L, "USER"));
         }
-        if (!usersRepository.findUserByEmail(entity.getEmail()).isPresent() && entity.getAge() >= 0) {
-            entity.setPassword(passwordEncoder.encode(entity.getPassword()));
-            usersRepository.save(entity);
-            return true;
-        }
-        return false;
+        usersRepository.save(entity);
     }
 
     @Transactional
@@ -60,12 +57,4 @@ public class UserServiceImpl implements UserService {
         usersRepository.deleteById(id);
     }
 
-    @Transactional
-    @Override
-    public void update(User entity) {
-        if (entity.getAge() >= 0) {
-            entity.setPassword(passwordEncoder.encode(entity.getPassword()));
-            usersRepository.save(entity);
-        }
-    }
 }

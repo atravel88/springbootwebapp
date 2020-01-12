@@ -1,4 +1,3 @@
-
 package ru.atavrel.springbootapp.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +11,10 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/logout").setViewName("login");
+        registry.addViewController("/registration").setViewName("registration");
+        registry.addViewController("/admin").setViewName("admin");
+        registry.addViewController("/home").setViewName("home");
+        registry.addViewController("/manager").setViewName("manager");
     }
 }
 
