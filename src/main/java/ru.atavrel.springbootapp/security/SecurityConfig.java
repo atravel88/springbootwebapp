@@ -38,16 +38,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home/**").hasAuthority("USER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/manager/**").hasAuthority("MANAGER")
-
-/*
-                .antMatchers(HttpMethod.GET, "/api/users/**").hasAnyAuthority("MANAGER", "ADMIN")
-                .antMatchers(HttpMethod.GET, "/api/roles/**").hasAnyAuthority("MANAGER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/users/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/users/**").hasAuthority("ADMIN")
-
-                .antMatchers(HttpMethod.GET, "/api/users/email/**").hasAuthority("USER") // косячно работает
-                .antMatchers(HttpMethod.POST, "/api/users/*").anonymous() // косячно работает
-*/
+                // auth for admin
+                .antMatchers(HttpMethod.GET,  "/api/admin/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,  "/api/admin/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT,  "/api/admin/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,  "/api/admin/**").hasAuthority("ADMIN")
+                // auth for manager
+                .antMatchers(HttpMethod.GET,  "/api/manager/**").hasAuthority("MANAGER")
+                // auth for user
+                .antMatchers(HttpMethod.GET,  "/api/user/**").hasAuthority("USER")
+                // auth for registration
+                .antMatchers(HttpMethod.GET,  "/registration/**").anonymous()
+                .antMatchers(HttpMethod.POST,  "/registration/**").anonymous()
+                //
                 .and()
                 .formLogin()
                 .loginPage("/")

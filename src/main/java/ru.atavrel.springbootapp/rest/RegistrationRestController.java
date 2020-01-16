@@ -8,8 +8,8 @@ import ru.atavrel.springbootapp.model.User;
 import ru.atavrel.springbootapp.service.UserService;
 
 @RestController
-@RequestMapping("api/user/users/email")
-public class UserRestController {
+@RequestMapping("/api/registration/users")
+public class RegistrationRestController {
 
     private UserService userService;
 
@@ -18,14 +18,20 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    //GET: http://localhost:8080/api/user/users/email/{email}
-    @GetMapping("/{email}")
+    //GET: http://localhost:8080/api/registration/users/email/{email}
+    @GetMapping("/email/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
         User user = userService.getUserByEmail(email);
         if (user == null) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //POST: http://localhost:8080/api/registration/users/
+    @PostMapping
+    public ResponseEntity<User> save(@RequestBody User user) {
+        userService.add(user);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
 }

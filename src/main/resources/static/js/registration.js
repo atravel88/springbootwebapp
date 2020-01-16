@@ -1,3 +1,5 @@
+//js for registration html
+
 addUserForm = $("#addUserForm");
 
 document.getElementById('submitAddUser').onclick = function (e) {
@@ -6,26 +8,17 @@ document.getElementById('submitAddUser').onclick = function (e) {
         const email = $("#email").val();
         $.ajax({
             type: "GET",
-            url: '/api/users/email/' + email,
+            url: '/api/registration/users/email/' + email,
             contentType: "application/json; charset=utf-8",
             error: function () {
                 $.ajax({
                     type: "POST",
-                    url: "/api/users",
+                    url: "/api/registration/users",
                     dataType: "json",
                     data: JSON.stringify(formToJSON(addUserForm)),
                     contentType: "application/json; charset=utf-8",
                     success: function () {
-                        if (window.location.pathname === "/registration") {
-                            window.location.replace("/?success");
-                        } else {
-                            $("label", $('#roles')).removeClass("active");
-                            $(":input", addUserForm)
-                                .not(":button, :submit, :reset, :hidden")
-                                .val("");
-                            ValidationMessage.text("User successfully added");
-                            validationMessageBlock.removeClass("alert-danger").addClass("alert-success").show();
-                        }
+                        window.location.replace("/?success");
                     },
                 })
             }
@@ -36,5 +29,3 @@ document.getElementById('submitAddUser').onclick = function (e) {
         })
     }
 };
-
-

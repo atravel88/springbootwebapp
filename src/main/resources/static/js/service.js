@@ -1,23 +1,11 @@
 validationMessageBlock = $(".validationMessageBlock").hide();
 ValidationMessage = $(".validationMessage");
 
-document.getElementById('reload').onclick = function (e) {
-    e.preventDefault();
-    getUserList()
-};
-
-document.getElementById('addUserPanel').onclick = function (e) {
-    e.preventDefault();
-    $("label", $('#roles')).removeClass("active");
-    $(":input", $('#addUserForm')).not(":submit").val('');
-    validationMessageBlock.hide();
-};
-
 function formToJSON(form) {
     const user = {
         roles: []
     };
-    $('.userRoles').each(function () {
+    $(".userRoles").each(function () {
         if ($(this).is(':checked')) {
             user.roles.push({id: $(this).attr('id'), role: $(this).attr('value')});
         }
