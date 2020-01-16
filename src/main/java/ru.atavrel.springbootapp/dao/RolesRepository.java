@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface RolesRepository extends CrudRepository<Role, Long> {
 
-    @EntityGraph(attributePaths = {"users"})
     Optional<Role> findById(Long id);
 
 }

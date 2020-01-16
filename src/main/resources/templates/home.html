@@ -6,16 +6,20 @@
     <title>Home page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{css/main.css}"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/resources/static.css/main.css}"
-          href="../../webapp/resources/static.css/main.css"/>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
-
 <body class="bg-light">
-
+<input type="hidden" name="email" id="email" th:value="${#authentication.getName()}">
 <div class="container-fluid">
     <div class="row p-2">
         <div class="col-12" th:replace="fragments/header :: header"></div>
@@ -29,41 +33,18 @@
                 <h1>User information: </h1>
             </div>
             <div class="container-my">
-                <table class="table table-striped bg-white border bg-dark" th:object="${user}">
-                    <tr>
-                        <td> Имя</td>
-                        <div th:switch="*{firstName}">
-                            <td th:case="''"> Не указано</td>
-                            <td th:case="*{firstName}" th:text="*{firstName}"></td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td> Фамилия</td>
-                        <div th:switch="*{lastName}">
-                            <td th:case="''"> Не указана</td>
-                            <td th:case="*{lastName}" th:text="*{lastName}"></td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td> Возраст</td>
-                        <div th:switch="*{age}">
-                            <td th:case="'0'"> Не указан</td>
-                            <td th:case="*{age}" th:text="*{age}"></td>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td> E-mail</td>
-                        <td th:text="*{email}"></td>
-                    </tr>
-                    <tr>
-                        <td>Твои роли</td>
-                        <td th:text="*{roles}"></td>
-                    </tr>
+                <table class="table table-striped bg-white border bg-dark">
+                    <tbody id="getUser">
+
+                    <!--place for user.js script-->
+                    </tbody>
                 </table>
             </div>
+
         </main>
     </div>
 </div>
+<script src="/js/user.js"></script>
 </body>
 </html>
 
