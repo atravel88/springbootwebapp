@@ -34,7 +34,7 @@ function getUserList() {
                 if (Object.is(age, null)) {
                     age = '';
                 }
-                tbody = `<tr class="table-striped">
+                tbody += `<tr class="table-striped">
                          <td>${firstName}</td>
                          <td>${lastName}</td>
                          <td>${age}</td>

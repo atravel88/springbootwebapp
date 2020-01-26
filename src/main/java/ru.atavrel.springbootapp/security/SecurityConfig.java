@@ -48,8 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // auth for user
                 .antMatchers(HttpMethod.GET,  "/api/user/**").hasAuthority("USER")
                 // auth for registration
-                .antMatchers(HttpMethod.GET,  "/registration/**").anonymous()
-                .antMatchers(HttpMethod.POST,  "/registration/**").anonymous()
+                .antMatchers(HttpMethod.GET,  "/api/registration/**").anonymous()
+                .antMatchers(HttpMethod.POST,  "/api/registration/**").anonymous()
                 //
                 .and()
                 .formLogin()
